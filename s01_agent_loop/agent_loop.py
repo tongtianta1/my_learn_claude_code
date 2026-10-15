@@ -83,9 +83,14 @@ def agent_loop(messages:list):
 
         messages.append({"role":"assistant","content":response.content})
 
-        tool_calls = {
-            block for block in response.content if block.type == "tool_use"
-        }
+        # tool_calls = {
+        #     block for block in response.content if block.type == "tool_use"
+        # }
+        tool_calls = []
+        for block in response.content:
+            if getattr(block, "type", None) == "tool_use":
+                tool_calls.append(block)
+
         if not tool_calls:
             return
         result = []
