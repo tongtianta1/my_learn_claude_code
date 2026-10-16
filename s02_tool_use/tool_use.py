@@ -41,7 +41,7 @@ ENVIRONMENT_PROMPT = (
 )
 SYSTEM = (
     f"You are a coding agent at {WORKDIR}. Environment: {ENVIRONMENT_PROMPT}. "
-    "Use bash to solve tasks. Act, don't explain."
+    "Use tools to solve tasks. Act, don't explain."
 )
 
 
@@ -176,7 +176,7 @@ def agent_loop(messages:list):
             return
         result = []
         for block in tool_calls:
-            print(f"\033[33m${block.input['command']}\033[0m")
+            print(f"\033[33m${block.name}\033[0m")
             handler = TOOL_HANDLERS.get(block.name)
             output = handler(**block.input) if handler else f"Error: 没有 '{block.name}'工具"
             print(output[:200])
