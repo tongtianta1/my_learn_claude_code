@@ -68,12 +68,6 @@ def run_bash(command:str)->str:
     # except (FileNotFoundError, OSError) as e:
     #     return f"Error: {str(e)}"
 
-#s02修改，确保文件修改路径安全
-def safe_path(p:str) -> path:
-    path = (WORKDIR / p).resolve()
-    if not path.is_relative_to(WORKDIR):
-        raise ValueError(f"Unsafe path: {p}")
-    return path
 
 #读取文件
 def run_read(path:str,limit:int | None = None) -> str:
@@ -318,7 +312,7 @@ register_hook("Stop", summary_hook)
 #核心循环
 def agent_loop(messages:list):
     #增加本地状态
-    round_since_todo = 0
+    rounds_since_todo = 0
     while True:
         response = client.messages.create(
             model = MODEL,system = SYSTEM,messages = messages,
