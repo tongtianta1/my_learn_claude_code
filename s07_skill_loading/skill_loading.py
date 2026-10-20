@@ -57,7 +57,7 @@ ENVIRONMENT_PROMPT = (
 class SkillLoader:
     def __init__(self,skills_dir:Path):
         self.skills_dir = skills_dir
-        self.skills = dict[str,dict[str,str]] = {}
+        self.skills : dict[str,dict[str,str]] = {}
         self.scan()
 
     @staticmethod
